@@ -1,0 +1,18 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "productpass-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-05-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "productpass-db",
+      "database_id": "REPLACE_AFTER_CREATE"
+    }
+  ],
+  "vars": {
+    "ALLOWED_ORIGINS": "http://localhost:3023,https://theproductpass.garden,https://www.theproductpass.garden"
+  },
+  "migrations_dir": "migrations"
+}

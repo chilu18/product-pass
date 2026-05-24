@@ -5,7 +5,7 @@ import type { ProductPassport } from "@/types";
 import { createEmptyPassport, savePassport } from "@/lib/store";
 
 export async function savePassportAction(passport: ProductPassport): Promise<ProductPassport> {
-  const saved = savePassport(passport);
+  const saved = await savePassport(passport);
   revalidatePath("/dashboard");
   revalidatePath("/products");
   revalidatePath(`/products/${passport.id}/edit`);

@@ -5,9 +5,9 @@ import { getDashboardStats, getAllDocuments } from "@/lib/store";
 import { calculateComplianceScore } from "@/lib/compliance";
 import { AlertTriangle } from "lucide-react";
 
-export default function DashboardPage() {
-  const stats = getDashboardStats();
-  const documents = getAllDocuments();
+export default async function DashboardPage() {
+  const stats = await getDashboardStats();
+  const documents = await getAllDocuments();
 
   const demoPassport = stats.recentProducts[0];
   const demoCompliance = demoPassport

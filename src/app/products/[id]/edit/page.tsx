@@ -8,11 +8,11 @@ interface EditProductPageProps {
 
 export default async function EditProductPage({ params }: EditProductPageProps) {
   const { id } = await params;
-  const passport = getPassportById(id);
+  const passport = await getPassportById(id);
 
   if (!passport) notFound();
 
-  const documents = getDocumentsForProduct(id);
+  const documents = await getDocumentsForProduct(id);
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">

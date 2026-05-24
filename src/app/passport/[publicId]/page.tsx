@@ -8,14 +8,15 @@ interface PageProps {
 
 export default async function PublicPassportPage({ params }: PageProps) {
   const { publicId } = await params;
-  const passport = getPassportByPublicId(publicId);
+  const passport = await getPassportByPublicId(publicId);
 
   if (!passport) {
     notFound();
   }
 
-  const documents = getDocumentsForProduct(passport.id);
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3023";
+  const documents = await getDocumentsForProduct(passport.id);
+  const baseUrl =
+    process.env.NEXT_PUBLIC_APP_URL ?? "https://theproductpass.garden";
 
   return (
     <PublicPassportView passport={passport} documents={documents} baseUrl={baseUrl} />

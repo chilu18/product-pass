@@ -2,9 +2,9 @@ import Link from "next/link";
 import { getAllPassports, getAllDocuments } from "@/lib/store";
 import { calculateComplianceScore } from "@/lib/compliance";
 
-export default function ProductsPage() {
-  const passports = getAllPassports();
-  const documents = getAllDocuments();
+export default async function ProductsPage() {
+  const passports = await getAllPassports();
+  const documents = await getAllDocuments();
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">

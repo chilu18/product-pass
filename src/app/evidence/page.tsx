@@ -1,10 +1,10 @@
 import EvidenceVault from "@/components/evidence/EvidenceVault";
 import { getDocuments, getAllPassports } from "@/lib/store";
 
-export default function EvidencePage() {
-  const documents = getDocuments();
+export default async function EvidencePage() {
+  const documents = await getDocuments();
   const productNames = Object.fromEntries(
-    getAllPassports().map((p) => [p.id, p.productName])
+    (await getAllPassports()).map((p) => [p.id, p.productName])
   );
 
   return (

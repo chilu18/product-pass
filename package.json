@@ -6,7 +6,12 @@
     "dev": "next dev -p 3023",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "worker:dev": "wrangler dev --config workers/productpass-api/wrangler.jsonc --port 8787",
+    "worker:deploy": "wrangler deploy --config workers/productpass-api/wrangler.jsonc",
+    "db:migrate:local": "wrangler d1 migrations apply productpass-db --local --config workers/productpass-api/wrangler.jsonc",
+    "db:migrate:remote": "wrangler d1 migrations apply productpass-db --remote --config workers/productpass-api/wrangler.jsonc",
+    "db:seed:local": "curl -s -X POST http://localhost:8787/v1/admin/seed"
   },
   "dependencies": {
     "lucide-react": "^1.16.0",
@@ -16,6 +21,7 @@
     "react-dom": "19.2.4"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260524.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -23,6 +29,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "^4.14.0"
   }
 }

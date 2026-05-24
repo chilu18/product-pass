@@ -32,7 +32,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3023](http://localhost:3023).
 
 ### Build for production
 
@@ -41,20 +41,33 @@ npm run build
 npm start
 ```
 
-Deploy to Vercel with zero config — push to GitHub and connect the repo.
+Deploy the Next.js app to **Vercel**. Data can live in **Cloudflare D1** via the Worker API — see [docs/CLOUDFLARE.md](docs/CLOUDFLARE.md).
+
+## Architecture (Vercel + Cloudflare)
+
+```
+theproductpass.garden  →  Vercel (Next.js UI)
+api.theproductpass.garden  →  Cloudflare Worker (REST API)
+                              ↓
+                         Cloudflare D1 (SQLite)
+```
+
+- **Without `PRODUCTPASS_API_URL`** — uses local `data/store.json` (offline demos)
+- **With `PRODUCTPASS_API_URL`** — all reads/writes go to Cloudflare D1 via Workers
 
 ## Environment Variables
 
 | Variable | Required | Description |
 |---|---|---|
-| `NEXT_PUBLIC_APP_URL` | No | Base URL for QR code generation (defaults to `http://localhost:3000`) |
-| `OPENAI_API_KEY` | No | Enables real AI generation in Passport Copilot (falls back to mock parser) |
-
-Create a `.env.local` file:
+| `NEXT_PUBLIC_APP_URL` | No | Public site URL for QR codes (`https://theproductpass.garden`) |
+| `PRODUCTPASS_API_URL` | No | Cloudflare Worker API base URL |
+| `PRODUCTPASS_API_KEY` | No | API key (matches Worker `API_KEY` secret) |
+| `OPENAI_API_KEY` | No | Enables real AI in Passport Copilot |
 
 ```env
-NEXT_PUBLIC_APP_URL=http://localhost:3000
-OPENAI_API_KEY=sk-...
+NEXT_PUBLIC_APP_URL=http://localhost:3023
+PRODUCTPASS_API_URL=http://localhost:8787
+PRODUCTPASS_API_KEY=dev
 ```
 
 ## Routes
@@ -104,7 +117,9 @@ OPENAI_API_KEY=sk-...
 
 ## Future Integrations
 
-- **Supabase** — Persistent storage, auth, and real-time sync
+- **Cloudflare D1** — Primary database (via Worker API, already scaffolded)
+- **Cloudflare R2** — Evidence document storage (certificates, supplier PDFs)
+- **Cloudflare Workers AI** — Passport Copilot at the edge
 - **OpenAI** — Enhanced Passport Copilot with structured output
 - **Cloudflare R2** — Document and evidence file storage
 - **Shopify / WooCommerce** — Product catalog sync
