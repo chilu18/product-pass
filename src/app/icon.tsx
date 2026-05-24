@@ -13,33 +13,40 @@ export default function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "linear-gradient(135deg, #10b981 0%, #0d9488 100%)",
+          background: "#ecfdf5",
           borderRadius: 7,
         }}
       >
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+        <div
+          style={{
+            position: "relative",
+            width: 22,
+            height: 28,
+            borderRadius: 4,
+            background: "#059669",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            overflow: "hidden",
+          }}
         >
-          <path
-            d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"
-            fill="white"
-            stroke="white"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+          <div
+            style={{
+              position: "absolute",
+              left: 0,
+              top: 0,
+              width: 5,
+              height: "100%",
+              background: "#047857",
+            }}
           />
-          <path
-            d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"
-            stroke="white"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+            <path
+              d="M12 4C8 4 5 7.5 5 12c0 5.5 4.5 9.5 7 11 2.5-1.5 7-5.5 7-11 0-4.5-3-8-7-8zm0 3c2.2 0 4 1.8 4 4 0 2.5-2 4.5-4 5.5-2-1-4-3-4-5.5 0-2.2 1.8-4 4-4z"
+              fill="white"
+            />
+          </svg>
+        </div>
       </div>
     ),
     { ...size }

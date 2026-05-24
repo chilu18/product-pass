@@ -3,8 +3,8 @@ import Link from "next/link";
 export default function NotFound() {
   return (
     <div className="flex min-h-[60vh] flex-col items-center justify-center px-4 text-center">
-      <h1 className="text-4xl font-bold text-slate-900">Passport not found</h1>
-      <p className="mt-3 text-slate-500">
+      <h1 className="pp-heading text-4xl">Passport not found</h1>
+      <p className="mt-3 pp-text">
         This Digital Product Passport does not exist or has been removed.
       </p>
       <Link

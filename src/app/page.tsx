@@ -57,8 +57,8 @@ export default function HomePage() {
       <LandingHero />
       <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold text-slate-900">More than a QR page generator</h2>
-          <p className="mt-4 text-lg text-slate-600">
+          <h2 className="pp-heading text-3xl">More than a QR page generator</h2>
+          <p className="mt-4 text-lg pp-text">
             ProductPass is compliance, traceability, identity, evidence, and circular-commerce
             infrastructure for physical products — DPP-lite for fashion and apparel SMEs.
           </p>
@@ -69,10 +69,10 @@ export default function HomePage() {
           ))}
         </div>
       </section>
-      <section className="border-t border-slate-200 bg-slate-50/50">
+      <section className="border-t border-slate-200 bg-slate-50/50 dark:border-slate-800 dark:bg-slate-900/40">
         <div className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6">
-          <h2 className="text-2xl font-bold text-slate-900">Ready to build your first passport?</h2>
-          <p className="mt-3 text-slate-600">
+          <h2 className="pp-heading text-2xl">Ready to build your first passport?</h2>
+          <p className="mt-3 pp-text">
             Turn product data, supplier evidence, and sustainability claims into QR-powered Digital
             Product Passports.
           </p>
@@ -85,7 +85,7 @@ export default function HomePage() {
             </Link>
             <Link
               href={`/passport/${DEMO_PUBLIC_ID}`}
-              className="rounded-xl border border-slate-200 bg-white px-8 py-3 text-base font-semibold text-slate-700 hover:bg-slate-50"
+              className="pp-secondary-btn px-8 py-3 text-base font-semibold"
             >
               View demo passport
             </Link>

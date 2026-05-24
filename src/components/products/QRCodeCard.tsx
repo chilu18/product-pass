@@ -3,6 +3,7 @@
 import { QRCodeSVG } from "qrcode.react";
 import Link from "next/link";
 import { ExternalLink, Download, Printer } from "lucide-react";
+import { useTheme } from "@/components/ThemeProvider";
 
 interface QRCodeCardProps {
   publicId: string;
@@ -10,31 +11,33 @@ interface QRCodeCardProps {
 }
 
 export default function QRCodeCard({ publicId, productName }: QRCodeCardProps) {
+  const { theme } = useTheme();
   const baseUrl =
     typeof window !== "undefined"
       ? window.location.origin
       : process.env.NEXT_PUBLIC_APP_URL ?? "https://productpass.vercel.app";
   const passportUrl = `${baseUrl}/passport/${publicId}`;
+  const isDark = theme === "dark";
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-      <h3 className="text-lg font-semibold text-slate-900">QR passport</h3>
-      <p className="mt-1 text-sm text-slate-600">
+    <div className="pp-card p-6">
+      <h3 className="pp-subheading">QR passport</h3>
+      <p className="mt-1 text-sm pp-text">
         Scan to open the public Digital Product Passport for {productName}.
       </p>
 
       <div className="mt-6 flex flex-col items-center">
-        <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-inner">
+        <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-inner dark:border-slate-700 dark:bg-slate-950">
           <QRCodeSVG
             value={passportUrl}
             size={180}
             level="M"
             includeMargin
-            fgColor="#0f172a"
-            bgColor="#ffffff"
+            fgColor={isDark ? "#f1f5f9" : "#0f172a"}
+            bgColor={isDark ? "#020617" : "#ffffff"}
           />
         </div>
-        <p className="mt-3 max-w-xs break-all text-center text-xs text-slate-500">
+        <p className="mt-3 max-w-xs break-all text-center text-xs text-slate-500 dark:text-slate-400">
           {passportUrl}
         </p>
       </div>
@@ -51,7 +54,7 @@ export default function QRCodeCard({ publicId, productName }: QRCodeCardProps) {
         <button
           type="button"
           onClick={() => alert("Download QR — integrate with label printing in production")}
-          className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
+          className="pp-secondary-btn inline-flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium"
         >
           <Download className="h-4 w-4" />
           Download
@@ -59,7 +62,7 @@ export default function QRCodeCard({ publicId, productName }: QRCodeCardProps) {
         <button
           type="button"
           onClick={() => window.print()}
-          className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
+          className="pp-secondary-btn inline-flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium"
         >
           <Printer className="h-4 w-4" />
           Print label

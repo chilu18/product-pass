@@ -2,13 +2,13 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "ProductPass",
+    name: "ProductPass — theproductpass.garden",
     short_name: "ProductPass",
-    description: "QR-powered Digital Product Passports for modern brands.",
+    description: "Digital Product Passports at theproductpass.garden",
     start_url: "/",
     display: "standalone",
-    background_color: "#ffffff",
-    theme_color: "#059669",
+    background_color: "#020617",
+    theme_color: "#047857",
     icons: [
       {
         src: "/icon.svg",

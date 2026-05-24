@@ -6,6 +6,9 @@ import { CLAIM_TYPE_LABELS } from "@/lib/constants";
 import { VerificationBadgeFromCompliance } from "./VerificationBadge";
 import LifecycleActions from "./LifecycleActions";
 import { QRCodeSVG } from "qrcode.react";
+import BrandIcon from "@/components/BrandIcon";
+import BrandWordmark from "@/components/BrandWordmark";
+import ThemeToggle from "@/components/ThemeToggle";
 import {
   MapPin,
   Factory,
@@ -45,23 +48,24 @@ export default function PublicPassportView({
   }[passport.passportLevel];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
-      <div className="border-b border-slate-200 bg-white">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900">
+      <div className="border-b border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950">
         <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-4 sm:px-6">
           <div className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-600">
-              <Leaf className="h-4 w-4 text-white" />
-            </div>
-            <span className="font-semibold text-slate-900">ProductPass</span>
+            <BrandIcon size={32} className="rounded-lg" />
+            <BrandWordmark layout="stacked" className="[&>div:first-child]:text-base" />
           </div>
-          <VerificationBadgeFromCompliance result={compliance} />
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <VerificationBadgeFromCompliance result={compliance} />
+          </div>
         </div>
       </div>
 
       <main className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
-        <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-lg shadow-slate-200/50">
+        <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-lg shadow-slate-200/50 dark:border-slate-800 dark:bg-slate-900 dark:shadow-black/20">
           {passport.imageUrl && (
-            <div className="aspect-[16/9] overflow-hidden bg-slate-100">
+            <div className="aspect-[16/9] overflow-hidden bg-slate-100 dark:bg-slate-800">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={passport.imageUrl}
@@ -74,45 +78,45 @@ export default function PublicPassportView({
           <div className="p-6 sm:p-8">
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
-                <p className="text-sm font-medium text-emerald-600">{passport.brandName}</p>
-                <h1 className="mt-1 text-2xl font-bold text-slate-900 sm:text-3xl">
+                <p className="text-sm font-medium text-emerald-600 dark:text-emerald-400">{passport.brandName}</p>
+                <h1 className="mt-1 text-2xl font-bold text-slate-900 dark:text-slate-50 sm:text-3xl">
                   {passport.productName}
                 </h1>
-                <p className="mt-2 text-sm text-slate-500">
+                <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
                   SKU {passport.sku}
                   {passport.batchNumber && ` · Batch ${passport.batchNumber}`}
                 </p>
               </div>
-              <div className="hidden rounded-xl border border-slate-200 bg-white p-2 sm:block">
+              <div className="hidden rounded-xl border border-slate-200 bg-white p-2 dark:border-slate-700 dark:bg-slate-950 sm:block">
                 <QRCodeSVG value={passportUrl} size={80} level="M" />
               </div>
             </div>
 
-            <div className="mt-4 inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700">
+            <div className="mt-4 inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700 dark:bg-slate-800 dark:text-slate-300">
               {levelLabel}
             </div>
 
             {passport.description && (
-              <p className="mt-6 leading-relaxed text-slate-600">{passport.description}</p>
+              <p className="mt-6 leading-relaxed text-slate-600 dark:text-slate-400">{passport.description}</p>
             )}
 
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
-              <div className="flex items-start gap-3 rounded-xl bg-slate-50 p-4">
+              <div className="flex items-start gap-3 rounded-xl pp-muted-surface p-4">
                 <Factory className="mt-0.5 h-5 w-5 text-slate-500" />
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
                     Manufacturer
                   </p>
-                  <p className="mt-1 text-sm font-medium text-slate-900">{passport.manufacturer}</p>
+                  <p className="mt-1 text-sm font-medium text-slate-900 dark:text-slate-100">{passport.manufacturer}</p>
                 </div>
               </div>
-              <div className="flex items-start gap-3 rounded-xl bg-slate-50 p-4">
+              <div className="flex items-start gap-3 rounded-xl pp-muted-surface p-4">
                 <MapPin className="mt-0.5 h-5 w-5 text-slate-500" />
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
                     Origin
                   </p>
-                  <p className="mt-1 text-sm font-medium text-slate-900">
+                  <p className="mt-1 text-sm font-medium text-slate-900 dark:text-slate-100">
                     {passport.countryOfOrigin}
                   </p>
                 </div>
@@ -121,7 +125,7 @@ export default function PublicPassportView({
 
             {publicMaterials.length > 0 && (
               <section className="mt-10">
-                <h2 className="flex items-center gap-2 text-lg font-semibold text-slate-900">
+                <h2 className="flex items-center gap-2 text-lg font-semibold text-slate-900 dark:text-slate-50">
                   <Leaf className="h-5 w-5 text-emerald-600" />
                   Materials
                 </h2>
@@ -129,18 +133,18 @@ export default function PublicPassportView({
                   {publicMaterials.map((mat) => (
                     <div
                       key={mat.id}
-                      className="flex items-center justify-between rounded-xl border border-slate-200 p-4"
+                      className="flex items-center justify-between rounded-xl border border-slate-200 p-4 dark:border-slate-700"
                     >
                       <div>
-                        <p className="font-medium text-slate-900">{mat.name}</p>
-                        <p className="text-sm text-slate-500">
+                        <p className="font-medium text-slate-900 dark:text-slate-100">{mat.name}</p>
+                        <p className="text-sm text-slate-500 dark:text-slate-400">
                           {mat.sourceCountry} · {mat.supplierName}
                         </p>
                       </div>
                       <div className="text-right">
-                        <p className="font-semibold text-slate-900">{mat.percentage}%</p>
+                        <p className="font-semibold text-slate-900 dark:text-slate-100">{mat.percentage}%</p>
                         {mat.recycledContentPercentage > 0 && (
-                          <p className="text-xs text-emerald-600">
+                          <p className="text-xs text-emerald-600 dark:text-emerald-400">
                             {mat.recycledContentPercentage}% recycled
                           </p>
                         )}
@@ -153,7 +157,7 @@ export default function PublicPassportView({
 
             {publicClaims.length > 0 && (
               <section className="mt-10">
-                <h2 className="flex items-center gap-2 text-lg font-semibold text-slate-900">
+                <h2 className="flex items-center gap-2 text-lg font-semibold text-slate-900 dark:text-slate-50">
                   <Shield className="h-5 w-5 text-emerald-600" />
                   Sustainability claims
                 </h2>
@@ -165,8 +169,8 @@ export default function PublicPassportView({
                         key={claim.id}
                         className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm ${
                           backed
-                            ? "border-emerald-200 bg-emerald-50 text-emerald-800"
-                            : "border-slate-200 bg-slate-50 text-slate-700"
+                            ? "border-emerald-200 bg-emerald-50 text-emerald-800 dark:border-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-300"
+                            : "border-slate-200 bg-slate-50 text-slate-700 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300"
                         }`}
                       >
                         {CLAIM_TYPE_LABELS[claim.claimType]}: {claim.text}
@@ -182,34 +186,34 @@ export default function PublicPassportView({
 
             <section className="mt-10 grid gap-4 sm:grid-cols-2">
               {passport.lifecycle.careInstructions && (
-                <div className="rounded-xl border border-slate-200 p-4">
-                  <div className="flex items-center gap-2 text-sm font-semibold text-slate-900">
+                <div className="rounded-xl border border-slate-200 p-4 dark:border-slate-700">
+                  <div className="flex items-center gap-2 text-sm font-semibold text-slate-900 dark:text-slate-100">
                     <Droplets className="h-4 w-4 text-blue-500" />
                     Care
                   </div>
-                  <p className="mt-2 text-sm text-slate-600">
+                  <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
                     {passport.lifecycle.careInstructions}
                   </p>
                 </div>
               )}
               {passport.lifecycle.repairInstructions && (
-                <div className="rounded-xl border border-slate-200 p-4">
-                  <div className="flex items-center gap-2 text-sm font-semibold text-slate-900">
+                <div className="rounded-xl border border-slate-200 p-4 dark:border-slate-700">
+                  <div className="flex items-center gap-2 text-sm font-semibold text-slate-900 dark:text-slate-100">
                     <Wrench className="h-4 w-4 text-orange-500" />
                     Repair
                   </div>
-                  <p className="mt-2 text-sm text-slate-600">
+                  <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
                     {passport.lifecycle.repairInstructions}
                   </p>
                 </div>
               )}
               {passport.lifecycle.reuseInstructions && (
-                <div className="rounded-xl border border-slate-200 p-4">
-                  <div className="flex items-center gap-2 text-sm font-semibold text-slate-900">
+                <div className="rounded-xl border border-slate-200 p-4 dark:border-slate-700">
+                  <div className="flex items-center gap-2 text-sm font-semibold text-slate-900 dark:text-slate-100">
                     <RefreshCw className="h-4 w-4 text-teal-500" />
                     Reuse &amp; resale
                   </div>
-                  <p className="mt-2 text-sm text-slate-600">
+                  <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
                     {passport.lifecycle.reuseInstructions}
                     {passport.lifecycle.resaleInstructions &&
                       ` ${passport.lifecycle.resaleInstructions}`}
@@ -217,12 +221,12 @@ export default function PublicPassportView({
                 </div>
               )}
               {passport.lifecycle.recyclingInstructions && (
-                <div className="rounded-xl border border-slate-200 p-4">
-                  <div className="flex items-center gap-2 text-sm font-semibold text-slate-900">
+                <div className="rounded-xl border border-slate-200 p-4 dark:border-slate-700">
+                  <div className="flex items-center gap-2 text-sm font-semibold text-slate-900 dark:text-slate-100">
                     <Recycle className="h-4 w-4 text-emerald-500" />
                     Recycling
                   </div>
-                  <p className="mt-2 text-sm text-slate-600">
+                  <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
                     {passport.lifecycle.recyclingInstructions}
                   </p>
                 </div>
@@ -231,7 +235,7 @@ export default function PublicPassportView({
 
             {publicCerts.length > 0 && (
               <section className="mt-10">
-                <h2 className="flex items-center gap-2 text-lg font-semibold text-slate-900">
+                <h2 className="flex items-center gap-2 text-lg font-semibold text-slate-900 dark:text-slate-50">
                   <Award className="h-5 w-5 text-amber-500" />
                   Certifications
                 </h2>
@@ -239,11 +243,11 @@ export default function PublicPassportView({
                   {publicCerts.map((cert) => (
                     <div
                       key={cert.id}
-                      className="flex items-center justify-between rounded-xl border border-slate-200 px-4 py-3"
+                      className="flex items-center justify-between rounded-xl border border-slate-200 px-4 py-3 dark:border-slate-700"
                     >
                       <div>
-                        <p className="font-medium text-slate-900">{cert.name}</p>
-                        <p className="text-sm text-slate-500">{cert.issuer}</p>
+                        <p className="font-medium text-slate-900 dark:text-slate-100">{cert.name}</p>
+                        <p className="text-sm text-slate-500 dark:text-slate-400">{cert.issuer}</p>
                       </div>
                       {cert.expiryDate && (
                         <p className="text-xs text-slate-500">
@@ -256,7 +260,7 @@ export default function PublicPassportView({
               </section>
             )}
 
-            <div className="mt-10 flex flex-col items-center rounded-2xl border border-slate-200 bg-slate-50 p-6 sm:hidden">
+            <div className="mt-10 flex flex-col items-center rounded-2xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-800/50 sm:hidden">
               <QRCodeSVG value={passportUrl} size={120} level="M" />
               <p className="mt-3 text-xs text-slate-500">Scan for product passport</p>
             </div>
@@ -268,7 +272,8 @@ export default function PublicPassportView({
         </div>
 
         <p className="mt-8 text-center text-xs text-slate-400">
-          Last updated {new Date(passport.updatedAt).toLocaleDateString()} · Powered by ProductPass
+          Last updated {new Date(passport.updatedAt).toLocaleDateString()} · Powered by{" "}
+          <span className="text-slate-500 dark:text-slate-400">theproductpass.garden</span>
         </p>
       </main>
     </div>

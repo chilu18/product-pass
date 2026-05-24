@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Leaf } from "lucide-react";
+import BrandIcon from "@/components/BrandIcon";
+import BrandWordmark from "@/components/BrandWordmark";
+import ThemeToggle from "@/components/ThemeToggle";
 import { DEMO_PUBLIC_ID } from "@/lib/constants";
 
 const navLinks = [
@@ -19,15 +21,11 @@ export default function AppHeader() {
   if (isPublicPassport) return null;
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur-md">
+    <header className="pp-header">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <Link href="/" className="flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 shadow-sm">
-            <Leaf className="h-5 w-5 text-white" />
-          </div>
-          <span className="text-lg font-semibold tracking-tight text-slate-900">
-            Product<span className="text-emerald-600">Pass</span>
-          </span>
+          <BrandIcon size={36} className="rounded-xl shadow-sm" />
+          <BrandWordmark layout="stacked" />
         </Link>
 
         {!isLanding && (
@@ -38,8 +36,8 @@ export default function AppHeader() {
                 href={link.href}
                 className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
                   pathname?.startsWith(link.href)
-                    ? "bg-emerald-50 text-emerald-700"
-                    : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                    ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300"
+                    : "text-slate-600 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100"
                 }`}
               >
                 {link.label}
@@ -49,11 +47,12 @@ export default function AppHeader() {
         )}
 
         <div className="flex items-center gap-2">
+          <ThemeToggle />
           {isLanding ? (
             <>
               <Link
                 href={`/passport/${DEMO_PUBLIC_ID}`}
-                className="hidden rounded-lg px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50 sm:inline-flex"
+                className="hidden rounded-lg px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800 sm:inline-flex"
               >
                 View demo
               </Link>

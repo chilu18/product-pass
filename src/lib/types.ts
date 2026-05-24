@@ -140,7 +140,11 @@ export interface ComplianceResult {
 }
 
 export interface CopilotResponse {
+  productName: string;
+  sku: string;
+  category: string;
   productDescription: string;
+  imageUrl: string;
   materials: { name: string; percentage: number; recycledContentPercentage: number }[];
   careInstructions: string;
   recyclingInstructions: string;
