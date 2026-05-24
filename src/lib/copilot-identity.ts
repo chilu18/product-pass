@@ -12,16 +12,16 @@ const PRODUCT_TYPES: { pattern: RegExp; label: string; category: string; imageKe
 ];
 
 const STOCK_IMAGES: Record<string, string> = {
-  tote: "https://images.unsplash.com/photo-1548036328-c9fa89d128b5?w=800&h=600&fit=crop&q=80",
+  tote: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&h=600&fit=crop&q=80",
   bag: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=800&h=600&fit=crop",
   hoodie: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&h=600&fit=crop",
   tshirt: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&h=600&fit=crop",
   jeans: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=800&h=600&fit=crop",
   dress: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800&h=600&fit=crop",
-  jacket: "https://images.unsplash.com/photo-1551028711-00167b16eac5?w=800&h=600&fit=crop",
-  scarf: "https://images.unsplash.com/photo-1601924994987-196e8e2fbcc8?w=800&h=600&fit=crop",
+  jacket: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&h=600&fit=crop",
+  scarf: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop",
   footwear: "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&h=600&fit=crop",
-  textile: "https://images.unsplash.com/photo-1586790170083-2f9ceadc966d?w=800&h=600&fit=crop",
+  textile: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop",
   default: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop",
 };
 
