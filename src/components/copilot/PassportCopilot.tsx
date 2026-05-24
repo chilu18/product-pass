@@ -71,7 +71,7 @@ export default function PassportCopilot({ brandName, embedded, onApply }: Passpo
         disabled={loading || !notes.trim()}
         className="mt-3 rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white disabled:opacity-50"
       >
-        {loading ? "Generating…" : "Generate passport draft"}
+        {loading ? "Generating draft & product photo…" : "Generate passport draft"}
       </button>
 
       {error && (

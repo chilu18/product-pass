@@ -62,7 +62,9 @@ api.theproductpass.garden  →  Cloudflare Worker (REST API)
 | `NEXT_PUBLIC_APP_URL` | No | Public site URL for QR codes (`https://theproductpass.garden`) |
 | `PRODUCTPASS_API_URL` | No | Cloudflare Worker API base URL |
 | `PRODUCTPASS_API_KEY` | No | API key (matches Worker `API_KEY` secret) |
-| `OPENAI_API_KEY` | No | Enables real AI in Passport Copilot |
+| `OPENAI_API_KEY` | No | Copilot text + DALL·E product photos |
+| `STABILITY_API_KEY` | No | Stability AI product photos (fallback) |
+| `PRODUCT_IMAGE_PROVIDER` | No | `auto`, `openai`, `stability`, or `stock` |
 
 ```env
 NEXT_PUBLIC_APP_URL=http://localhost:3023

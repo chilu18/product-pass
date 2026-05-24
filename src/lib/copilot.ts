@@ -7,6 +7,7 @@ import {
   inferProductName,
   polishDescription,
 } from "./copilot-identity";
+import { generateProductImage } from "./product-image";
 
 export function generateCopilotResponse(notes: string, brandPrefix = "PP"): CopilotResponse {
   const lower = notes.toLowerCase();
@@ -27,6 +28,8 @@ export function generateCopilotResponse(notes: string, brandPrefix = "PP"): Copi
   const recycledCottonMatch = notes.match(/(\d+)%?\s*recycled\s*cotton/i);
   const polyMatch = notes.match(/(\d+)%?\s*recycled\s*polyester/i);
   const genericRecycled = notes.match(/(\d+)%?\s*recycled\s*(\w+)/gi);
+  const plainCottonMatch = notes.match(/(\d+)%?\s*cotton/i);
+  const plainMaterialMatch = notes.match(/(\d+)%?\s*([a-z]+)/i);
 
   if (cottonMatch) {
     materials.push({
@@ -35,6 +38,12 @@ export function generateCopilotResponse(notes: string, brandPrefix = "PP"): Copi
       recycledContentPercentage: 0,
     });
     missingEvidenceChecklist.push("Organic cotton certificate");
+  } else if (plainCottonMatch && !recycledCottonMatch) {
+    materials.push({
+      name: "Cotton",
+      percentage: Number(plainCottonMatch[1]),
+      recycledContentPercentage: 0,
+    });
   }
   if (recycledCottonMatch) {
     materials.push({
@@ -62,6 +71,13 @@ export function generateCopilotResponse(notes: string, brandPrefix = "PP"): Copi
           recycledContentPercentage: Number(parts[1]),
         });
       }
+    });
+  }
+  if (materials.length === 0 && plainMaterialMatch) {
+    materials.push({
+      name: plainMaterialMatch[2],
+      percentage: Number(plainMaterialMatch[1]),
+      recycledContentPercentage: 0,
     });
   }
 
@@ -129,7 +145,7 @@ async function generateWithOpenAI(notes: string, brandPrefix: string): Promise<C
         messages: [
           {
             role: "system",
-            content: `You are ProductPass Copilot for Digital Product Passports in fashion/textiles. Parse rough product notes into JSON with: productName, sku (format BRAND-TYPE-CODE, use brand prefix "${brandPrefix}"), category, productDescription (consumer-friendly paragraph), imageUrl (use a plausible unsplash.com photo URL matching the product type), materials (array of {name, percentage, recycledContentPercentage}), careInstructions, recyclingInstructions, sustainabilitySummary, missingEvidenceChecklist (array), greenClaimsWarnings (array). Flag green claims needing evidence.`,
+            content: `You are ProductPass Copilot for Digital Product Passports in fashion/textiles. Parse rough product notes into JSON with: productName, sku (format BRAND-TYPE-CODE, use brand prefix "${brandPrefix}"), category, productDescription (consumer-friendly paragraph), materials (array of {name, percentage, recycledContentPercentage}), careInstructions, recyclingInstructions, sustainabilitySummary, missingEvidenceChecklist (array), greenClaimsWarnings (array). Do not include imageUrl. Flag green claims needing evidence.`,
           },
           { role: "user", content: notes },
         ],
@@ -139,12 +155,9 @@ async function generateWithOpenAI(notes: string, brandPrefix: string): Promise<C
 
     if (!response.ok) return null;
     const data = await response.json();
-    const parsed = JSON.parse(data.choices[0].message.content) as CopilotResponse;
-    return {
-      ...generateCopilotResponse(notes, brandPrefix),
-      ...parsed,
-      imageUrl: parsed.imageUrl || inferImageUrl(notes),
-    };
+    const parsed = JSON.parse(data.choices[0].message.content) as Partial<CopilotResponse>;
+    const base = generateCopilotResponse(notes, brandPrefix);
+    return { ...base, ...parsed };
   } catch {
     return null;
   }
@@ -154,6 +167,18 @@ export async function generateCopilotResponseAsync(
   notes: string,
   brandPrefix = "PP"
 ): Promise<CopilotResponse> {
-  const ai = await generateWithOpenAI(notes, brandPrefix);
-  return ai ?? generateCopilotResponse(notes, brandPrefix);
+  const base = (await generateWithOpenAI(notes, brandPrefix)) ?? generateCopilotResponse(notes, brandPrefix);
+
+  const materialsSummary =
+    base.materials.length > 0
+      ? `Made with ${base.materials.map((m) => `${m.percentage}% ${m.name.toLowerCase()}`).join(" and ")}.`
+      : null;
+
+  const { imageUrl } = await generateProductImage({
+    notes,
+    productName: base.productName,
+    materialsSummary,
+  });
+
+  return { ...base, imageUrl };
 }

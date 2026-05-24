@@ -12,7 +12,7 @@ const PRODUCT_TYPES: { pattern: RegExp; label: string; category: string; imageKe
 ];
 
 const STOCK_IMAGES: Record<string, string> = {
-  tote: "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=800&h=600&fit=crop",
+  tote: "https://images.unsplash.com/photo-1548036328-c9fa89d128b5?w=800&h=600&fit=crop&q=80",
   bag: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=800&h=600&fit=crop",
   hoodie: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&h=600&fit=crop",
   tshirt: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&h=600&fit=crop",
