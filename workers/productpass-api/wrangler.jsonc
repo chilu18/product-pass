@@ -8,11 +8,17 @@
     {
       "binding": "DB",
       "database_name": "productpass-db",
-      "database_id": "REPLACE_AFTER_CREATE"
+      "database_id": "00949b7d-a205-4081-b663-4de89dd63e60",
+      "migrations_dir": "migrations"
     }
   ],
   "vars": {
     "ALLOWED_ORIGINS": "http://localhost:3023,https://theproductpass.garden,https://www.theproductpass.garden"
   },
-  "migrations_dir": "migrations"
+  "routes": [
+    {
+      "pattern": "api.theproductpass.garden",
+      "custom_domain": true
+    }
+  ]
 }
