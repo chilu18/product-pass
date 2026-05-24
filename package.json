@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "favicons": "node scripts/generate-favicons.mjs",
     "worker:dev": "wrangler dev --config workers/productpass-api/wrangler.jsonc --port 8787",
     "worker:deploy": "wrangler deploy --config workers/productpass-api/wrangler.jsonc",
     "db:migrate:local": "wrangler d1 migrations apply productpass-db --local --config workers/productpass-api/wrangler.jsonc",
@@ -28,6 +29,8 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
+    "png-to-ico": "^3.0.1",
+    "sharp": "^0.34.5",
     "tailwindcss": "^4",
     "typescript": "^5",
     "wrangler": "^4.14.0"
